@@ -86,3 +86,78 @@ body {
     50% { opacity: 0.4; }
 }
 
+.logo-text {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--amber)
+}
+
+.logo-version {
+    font-size: 11px;
+    color: var(--text-tertiary)
+}
+
+/* SEARCH */
+
+.search {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    max-width: 500px;
+}
+
+.search input {
+    flex: 1;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.search input::placeholder {
+    color: var(--text-tertiary)
+}
+
+.search button {
+    background: var(--amber);
+    color: #000;
+    border: none;
+    padding: 8px 20px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.search button:hover {
+    background: #ffaa33;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-time {
+    color: var(--text-tertiary);
+    margin-left: 8px;
+}
