@@ -1,7 +1,7 @@
 :root {
-    --bg-base: #0a0a0a;     
+    --bg-base: #0a0a0a;     /* pg backgroudn*/
     --bg-panel: #111111;     
-    --bg-elevated: #1a1a1a;  
+    --bg-elevated: #1a1a1a;   /*hover states, inputs */
     --bg-active: #222222;    
     
     --border: #1f1f1f;
@@ -41,3 +41,48 @@ body {
     display: flex;
     flex-direction: column;
 }
+/* --------------------- */
+/* TICKER TAPE */
+.ticker-tape {
+    background: #000;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+
+
+/* ------------------- */
+/* TOP BAR */
+.topbar {
+    height: 52px;
+    background: var(--bg-panel);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+}
+
+.logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1;}
+    50% { opacity: 0.4; }
+}
+
