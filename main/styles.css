@@ -1,0 +1,43 @@
+:root {
+    --bg-base: #0a0a0a;     
+    --bg-panel: #111111;     
+    --bg-elevated: #1a1a1a;  
+    --bg-active: #222222;    
+    
+    --border: #1f1f1f;
+    --border-bright: #2a2a2a;
+
+    --text-primary: #e8e8e8;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+
+    --amber: #ff9500;     /* the signature Bloomberg orange */
+    --amber-dim: #b86b00; /* darker amber for borders/secondary */
+    --green: #00d672;     /* gains, positive change */
+    --red: #ff3b3b;       /* losses, negative change */
+    --cyan: #00bfff;      /* info, links */
+
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-sans: 'IBM Plex Sans', sans-serif;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-base) ;
+    color: var(--text-primary);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+}

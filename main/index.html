@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Ticker Tape -->
+    <div class="ticker-tape">
+        <div class="ticker-track" id ="ticker-track">
+            <!-- JS STuff goes here -->
+        </div>
+    </div>
+
+    <!-- Header bar  -->
+    <header class="topbar">
+        <div class="logo">
+            <span class="logo-dot"></span>
+            <span class="logo-text">Terminal</span>
+            <span class="logo-version">v0.1</span>
+        </div>
+
+        <!-- Search bar and Load Button -->
+        <div class="Searh">
+            <input type="text" id="ticker-input" placeholder="SEARCH TICKER (E.G. AAPL)">
+            <button onclick=""></button>
+        </div>
+        
+        <!-- Status -->
+         <div class="status">
+            <span class="status-dot"></span>
+            <span class="status-text">LIVE</span>
+            <span class="status-time" id="status-time">--:--:--</span>
+         </div>
+    </header>
+
+
+    <!-- MAIN DASHBOARD GRID (ALL THREE PANELS(Security,Watchlist,Analyst)) -->
+    <main class="grid">
+
+        <!-- Stock Details
+         Shows everything about the currently selected stock.
+         Price, change, day range, MC, volume etc. -->
+
+         <section class="panel panel-main">
+            <!-- Header -->
+            <div class="panel-header">
+                <span class="panel-title">SECURITY</span>
+                <span class="panel-meta" id="security-meta">No Symbol Loaded</span>
+            </div>
+
+            <!-- Placeholder state before a stock is loaded -->
+            <div class="panel-body" id="security-body">
+                <div class="empty-state">
+                    <p class="empty-title">NO SECURITY SELECTED</p>
+                    <p class="empty-sub">Search a security to load details</p>
+                </div>
+                <!-- Js stuff will be appear here goes here -->
+            </div>
+        </section>
+         
+        <!-- Watchlist
+          Shows saved tickers. Clicking on one, loads that stock into the main panel -->
+
+        <section class="panel panel-watchlist">
+            <div class="panel-header">
+                <span class="panel-title">WATCHLIST</span>
+                <span class="panel-meta">
+                    <!-- Button to add currently typed ticker into watchlist -->
+                    <button class="panel-action">+ADD</button>
+                </span>
+            </div>
+
+            <!-- header column for watchlist -->
+             <div class="watchlist-header">
+                <span>SYMBOL</span>
+                <span>PRICE</span>
+                <span><CHG%/span>
+             </div>
+             <div class="watchlist-list" id="watchlist-list"></div>
+        </section>
+
+
+        <!-- Claude chat bot at bottom of screen -->
+        
+        <section class="panel panel-chat">
+            <div class="panel-header">
+                <span class="panel-title">AI ANALYST</span>
+                <span class="panel-meta" id=""chat-context>No Security loaded</span>
+            </div>
+
+        <!-- Scrolling message list -->
+        </section>
+
+    </main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
