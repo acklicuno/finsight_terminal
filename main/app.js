@@ -167,7 +167,7 @@ function renderStockPanel(d) {
         ? ((d.price - d.fiftyTwoWeekLow) / (d.fiftyTwoWeekHigh - d.fiftyTwoWeekLow)) * 100
         : 50;
 
-    // Build the HTML using a template literal (backticks allow multi-line strings + ${} interpolation)
+    // Build the HTML using a template literal 
     body.innerHTML = `
         <div class="security-hero">
             <div>
@@ -452,7 +452,7 @@ document.getElementById('ticker-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') loadStock();
 });
 
-// Hit Enter in chat = send the message
+// Hit Enter in chat to send
 document.getElementById('chat-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') sendChat();
 });
