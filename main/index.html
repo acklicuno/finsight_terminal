@@ -2,113 +2,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminal</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Preconnect to Google Fonts so the browser starts the connection early (faster font load) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- IBM Plex Mono = monospaced terminal feel. IBM Plex Sans = clean body font. -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Ticker Tape -->
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+         TOP TICKER TAPE
+         A horizontal scrolling bar of big stock prices, like Bloomberg/CNBC.
+         JS will fill this with live data and animate it across the screen.
+         ───────────────────────────────────────────────────────────────────── -->
     <div class="ticker-tape">
-        <div class="ticker-track" id ="ticker-track">
-            <!-- JS STuff goes here -->
+        <div class="ticker-track" id="ticker-track">
+            <!-- JS injects ticker items here -->
         </div>
     </div>
 
-    <!-- Header bar  -->
+    <!-- ─────────────────────────────────────────────────────────────────────
+         HEADER BAR
+         Logo on the left, search input in the middle, status indicator on the right.
+         ───────────────────────────────────────────────────────────────────── -->
     <header class="topbar">
         <div class="logo">
             <span class="logo-dot"></span>
-            <span class="logo-text">Terminal</span>
+            <span class="logo-text">TERMINAL</span>
             <span class="logo-version">v0.1</span>
         </div>
 
-        <!-- Search bar and Load Button -->
+        <!-- Search bar — type a ticker, hit enter (or click), it loads into the main panel -->
         <div class="search">
-            <input type="text" id="ticker-input" placeholder="SEARCH TICKER (E.G. AAPL)">
-            <button onclick="">LOAD</button>
+            <input type="text" id="ticker-input" placeholder="SEARCH TICKER (e.g. AAPL)" autocomplete="off">
+            <button onclick="loadStock()">LOAD</button>
         </div>
-        
-        <!-- Status -->
-         <div class="status">
+
+        <!-- Status indicator on the right — green dot when connected, etc -->
+        <div class="status">
             <span class="status-dot"></span>
-            <span class="status-text">LIVE</span>
+            <span id="status-text">LIVE</span>
             <span class="status-time" id="status-time">--:--:--</span>
-         </div>
+        </div>
     </header>
 
-
-    <!-- MAIN DASHBOARD GRID (ALL THREE PANELS(Security,Watchlist,Analyst)) -->
+    <!-- ─────────────────────────────────────────────────────────────────────
+         MAIN DASHBOARD GRID
+         CSS grid layout. Four panels arranged like a Bloomberg terminal.
+         ───────────────────────────────────────────────────────────────────── -->
     <main class="grid">
 
-        <!-- Stock Details
-         Shows everything about the currently selected stock.
-         Price, change, day range, MC, volume etc. -->
-
-         <section class="panel panel-main">
-            <!-- Header -->
+        <!-- ─────────────────────────────────────────────────
+             PANEL 1: STOCK DETAILS (top-left, large)
+             Shows everything about the currently selected stock:
+             price, change, day range, market cap, volume, etc.
+             ───────────────────────────────────────────────── -->
+        <section class="panel panel-main">
+            <!-- Every panel has a header with a title and an optional status/action -->
             <div class="panel-header">
                 <span class="panel-title">SECURITY</span>
-                <span class="panel-meta" id="security-meta">No Symbol Loaded</span>
+                <span class="panel-meta" id="security-meta">— No symbol loaded —</span>
             </div>
 
-            <!-- Placeholder state before a stock is loaded -->
             <div class="panel-body" id="security-body">
+                <!-- Placeholder state shown before any stock is loaded -->
                 <div class="empty-state">
                     <p class="empty-title">NO SECURITY SELECTED</p>
-                    <p class="empty-sub">Search a security to load details</p>
+                    <p class="empty-sub">Search a ticker above to load details</p>
                 </div>
-                <!-- Js stuff will be appear here goes here -->
+                <!-- JS replaces empty-state with the full data panel when a stock loads -->
             </div>
         </section>
-         
-        <!-- Watchlist
-          Shows saved tickers. Clicking on one, loads that stock into the main panel -->
 
+        <!-- ─────────────────────────────────────────────────
+             PANEL 2: WATCHLIST (right side)
+             Shows saved tickers with live prices. Clicking one
+             loads that stock into the main panel.
+             ───────────────────────────────────────────────── -->
         <section class="panel panel-watchlist">
             <div class="panel-header">
                 <span class="panel-title">WATCHLIST</span>
                 <span class="panel-meta">
-                    <!-- Button to add currently typed ticker into watchlist -->
-                    <button class="panel-action">+ADD</button>
+                    <!-- Button to add the currently-typed ticker to the watchlist -->
+                    <button class="panel-action" onclick="addToWatchlist()">+ ADD</button>
                 </span>
             </div>
 
-            <!-- header column for watchlist -->
-             <div class="watchlist-header">
+            <!-- Column header row for the watchlist table -->
+            <div class="watchlist-header">
                 <span>SYMBOL</span>
                 <span>PRICE</span>
-                <span><CHG%/span>
-             </div>
-             <div class="watchlist-list" id="watchlist-list"></div>
+                <span>CHG%</span>
+            </div>
+
+            <!-- JS fills this with watchlist rows -->
+            <div class="watchlist-list" id="watchlist-list"></div>
         </section>
 
-
-        <!-- Claude chat bot at bottom of screen -->
-        
+        <!-- ─────────────────────────────────────────────────
+             PANEL 3: CLAUDE CHAT (bottom, wide)
+             A chat interface that talks to Claude's API.
+             Defaults to analyzing the currently selected stock,
+             but accepts any financial question.
+             ───────────────────────────────────────────────── -->
         <section class="panel panel-chat">
             <div class="panel-header">
                 <span class="panel-title">AI ANALYST</span>
-                <span class="panel-meta" id=""chat-context>No Security loaded</span>
+                <span class="panel-meta" id="chat-context">No security loaded</span>
             </div>
-        <!-- Scrolling message list -->
+
+            <!-- Scrolling message list — JS appends messages here -->
             <div class="chat-messages" id="chat-messages">
                 <div class="chat-msg chat-msg-system">
-                    <span class="msg-label">System</span>
-                    <p>Claude Analyst ready. Load a security to being contextual anaylst or ask any financial related question.</p>
+                    <span class="msg-label">SYSTEM</span>
+                    <p>Claude analyst ready. Load a security to begin contextual analysis, or ask any financial question directly.</p>
                 </div>
             </div>
-        <!-- Input row at the bottom of the chat panel -->
+
+            <!-- Input row at the bottom of the chat panel -->
             <div class="chat-input-row">
-                <input type="text" id="chat-input" placeholder="Ask about this security or anything finance..."/>
-                <button></button>
+                <input type="text" id="chat-input" placeholder="Ask about this security or anything finance..." />
+                <button onclick="sendChat()">SEND</button>
             </div>
-    
         </section>
 
     </main>
 
-<script src="app.js"></script>
-
+    <!-- Load JS at the bottom so the HTML above is already in the DOM when JS runs -->
+    <script src="app.js"></script>
 </body>
 </html>
